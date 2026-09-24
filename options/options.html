@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>X → Binance Square 设置</title>
+    <link rel="stylesheet" href="options.css">
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <div>
+          <div class="kicker">PERSONAL PUBLISHING BRIDGE</div>
+          <h1><span>X</span> → Binance Square</h1>
+          <p>在 X 页面检查、编辑，再把自己的推文发布到币安广场。不会自动发布。</p>
+        </div>
+        <div class="status-card">
+          <span class="status-light" id="status-light"></span>
+          <div><small>配置状态</small><strong id="configuration-status">正在读取…</strong></div>
+        </div>
+      </header>
+
+      <section class="layout">
+        <form class="panel settings-panel" id="settings-form">
+          <div class="section-heading">
+            <div><span class="number">01</span><h2>连接设置</h2></div>
+            <p>密钥只保存在这台电脑的 Chrome 扩展数据中。</p>
+          </div>
+
+          <label class="field">
+            <span>X 用户名</span>
+            <div class="handle-input"><b>@</b><input id="x-handle" name="x-handle" autocomplete="off" placeholder="yourname" required></div>
+            <small>只给这个账号发布的原创推文显示同步按钮。</small>
+          </label>
+
+          <label class="field">
+            <span>Square OpenAPI Key</span>
+            <input id="api-key" name="api-key" type="password" autocomplete="new-password" placeholder="粘贴新 Key；留空则保留当前 Key">
+            <small id="key-state">尚未保存 Key。</small>
+          </label>
+
+          <label class="check-row">
+            <input id="append-source" type="checkbox" checked>
+            <span><b>默认附上原推文链接</b><small>每次发布前仍可单独关闭。</small></span>
+          </label>
+
+          <div class="actions">
+            <button class="primary" type="submit">保存设置</button>
+            <button class="secondary danger" id="remove-key" type="button">移除 Key</button>
+          </div>
+          <div class="form-message" id="form-message" role="status" aria-live="polite"></div>
+        </form>
+
+        <aside class="panel guide-panel">
+          <div class="section-heading compact"><div><span class="number">02</span><h2>开始使用</h2></div></div>
+          <ol class="steps">
+            <li><span>1</span><div><b>创建专用 Key</b><p>到币安广场创作者中心创建 Square OpenAPI Key。</p><a href="https://www.binance.com/square/creator-center/home" target="_blank" rel="noopener noreferrer">打开创作者中心 ↗</a></div></li>
+            <li><span>2</span><div><b>保存并刷新 X</b><p>保存本页后刷新已经打开的 x.com 页面。</p></div></li>
+            <li><span>3</span><div><b>检查后发布</b><p>点击自己推文下方的金色图标，在右侧面板确认内容。</p></div></li>
+          </ol>
+          <div class="security-note"><strong>Key 权限边界</strong><p>Square 专用 Key 只用于发布广场内容，不涉及交易和账户资产。完整 Key 不会发送给 X 页面。</p></div>
+        </aside>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="section-heading history-heading">
+          <div><span class="number">03</span><h2>同步记录</h2></div>
+          <button class="secondary" id="clear-history" type="button">清空全部</button>
+        </div>
+        <div class="history" id="history"></div>
+      </section>
+
+      <section class="panel network-panel">
+        <div class="section-heading history-heading">
+          <div><span class="number">04</span><h2>网络诊断</h2></div>
+          <button class="secondary" id="run-diagnostics" type="button">开始检测</button>
+        </div>
+        <p class="network-hint">从扩展后台发起探测，与真实发布走同一条网络链路，用于定位 VPN 分流导致的“网页能开、发布连不上”问题。</p>
+        <div class="probes" id="probe-results"></div>
+        <div class="network-conclusion" id="network-conclusion" role="status" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>

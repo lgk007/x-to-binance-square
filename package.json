@@ -1,0 +1,11 @@
+{
+  "name": "x-to-binance-square",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node scripts/check.mjs",
+    "smoke:chrome": "node scripts/chrome-smoke.mjs"
+  }
+}

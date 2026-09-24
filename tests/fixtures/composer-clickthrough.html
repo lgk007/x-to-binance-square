@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Composer click-through regression fixture</title>
+    <style>
+      body { margin: 0; }
+      #underlying { height: 100px; left: 20px; position: fixed; top: 20px; width: 180px; }
+    </style>
+  </head>
+  <body>
+    <button id="underlying" type="button">X 页面按钮</button>
+    <script src="../../content/composer.js"></script>
+    <script>
+      let clicks = 0;
+      const underlying = document.querySelector("#underlying");
+      underlying.addEventListener("click", () => { clicks += 1; });
+
+      XToBinance.Composer.open({
+        tweet: {
+          tweetId: "123",
+          sourceUrl: "https://x.com/example/status/123",
+          text: "Regression test",
+          imageUrls: [],
+          hasUnsupportedMedia: false,
+        },
+        defaultAppendSource: true,
+        onPublish: async () => ({ ok: true }),
+      });
+      XToBinance.Composer.close();
+
+      const hitTarget = document.elementFromPoint(50, 50);
+      hitTarget?.click();
+      window.__composerClickthrough = clicks === 1;
+      window.__composerHitTarget = hitTarget?.id || hitTarget?.tagName || "none";
+    </script>
+  </body>
+</html>

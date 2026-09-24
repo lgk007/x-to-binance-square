@@ -1,0 +1,62 @@
+.xtb-sync-slot {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0;
+  justify-content: center;
+}
+
+.xtb-sync-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: rgb(113, 118, 123);
+  cursor: pointer;
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  margin: -8px;
+  padding: 8px;
+  transition: background-color 140ms ease, color 140ms ease, transform 140ms ease;
+  width: 34px;
+}
+
+.xtb-sync-button:hover {
+  background: rgba(240, 185, 11, 0.12);
+  color: #dba700;
+  transform: translateY(-1px);
+}
+
+.xtb-sync-button:focus-visible {
+  outline: 2px solid #f0b90b;
+  outline-offset: 2px;
+}
+
+.xtb-sync-button svg {
+  fill: currentColor;
+  height: 19px;
+  width: 19px;
+}
+
+.xtb-sync-button[data-state="publishing"] {
+  animation: xtb-pulse 1.2s ease-in-out infinite;
+  color: #f0b90b;
+  cursor: wait;
+}
+
+.xtb-sync-button[data-state="published"] {
+  color: #16a36a;
+}
+
+.xtb-sync-button[data-state="uncertain"] {
+  color: #d48b0c;
+}
+
+.xtb-sync-button[data-state="failed"] {
+  color: #e05757;
+}
+
+@keyframes xtb-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.05); }
+}

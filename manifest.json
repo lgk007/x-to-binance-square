@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "X → Binance Square",
+  "version": "0.1.0",
+  "minimum_chrome_version": "102",
+  "description": "Review and publish your own X posts to Binance Square.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://www.binance.com/*",
+    "https://pbs.twimg.com/*",
+    "https://*.amazonaws.com/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "设置 X → Binance Square"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*"],
+      "css": ["content/content.css"],
+      "js": [
+        "content/tweet-parser.js",
+        "content/composer.js",
+        "content/sync-button.js",
+        "content/tweet-observer.js",
+        "content/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
