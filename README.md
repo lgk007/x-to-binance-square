@@ -1,69 +1,69 @@
-# X → Binance Square
+# X → 币安广场
 
-[中文](README.zh-CN.md) | **English**
+**中文** | [English](README.en.md)
 
-> **Disclaimer**: This is a community project, **not affiliated with, endorsed by, or sponsored by X (Twitter) or Binance**. Publishing is done with your own Binance Square OpenAPI key; you are responsible for the content you publish and for complying with both platforms' rules.
+> **免责声明**：这是一个社区项目，**与 X（Twitter）、币安均无关联，也未获其背书或赞助**。发布使用的是你自己的币安广场 OpenAPI Key；你对所发布的内容以及遵守两个平台的规则负全部责任。
 
-A personal-use Chrome extension (Manifest V3) that bridges **your own** X posts to [Binance Square](https://www.binance.com/square/creator-center/home). It adds a gold sync button under your original tweets, opens a review panel where you can edit the text and pick images, and publishes **only after you click confirm** — nothing is ever automatic.
+一个仅供个人使用的 Chrome 扩展（Manifest V3），把**你自己的** X 推文同步到[币安广场](https://www.binance.com/square/creator-center/home)。它会在你的原创推文下方加一个金色同步按钮，打开一个审阅面板供你编辑文字、挑选图片，并且**只在你点击确认后才发布**——任何情况下都不会自动发布。
 
-![Options page](artifacts/options-preview.png)
+![设置页](artifacts/options-preview.png)
 
-## Privacy & security
+## 隐私与安全
 
-- **No server, no telemetry.** The extension talks directly to Binance's official OpenAPI from your browser. There is no third-party backend, no analytics, and nothing leaves your machine except the publish request itself.
-- **Key stays local.** Your Square OpenAPI key is stored in `chrome.storage.local` restricted to trusted extension contexts. Content scripts on x.com can never read it, and it is never logged.
-- **Least privilege.** Host permissions are limited to `x.com` (parse your tweets), `www.binance.com` (Square OpenAPI), `pbs.twimg.com` (download your images) and `*.amazonaws.com` (upload to Binance's presigned S3 URLs).
-- **Your account only.** The sync button appears only on original posts by the handle you configure — never on other people's tweets or reposts.
-- **Publishing scope only.** A Square creator key cannot touch trading or funds.
+- **无服务器、无遥测。** 扩展直接从你的浏览器调用币安官方 OpenAPI。没有第三方后端、没有数据统计，除了发布请求本身，没有任何数据离开你的电脑。
+- **Key 只留在本地。** 你的广场 OpenAPI Key 存于 `chrome.storage.local`，且仅限受信扩展上下文读取。x.com 上的内容脚本永远读不到它，它也从不被写入日志。
+- **最小权限。** Host 权限仅限于 `x.com`（解析你的推文）、`www.binance.com`（广场 OpenAPI）、`pbs.twimg.com`（下载你的图片）和 `*.amazonaws.com`（上传到币安预签名的 S3 地址）。
+- **只针对你的账号。** 同步按钮只出现在你所配置用户名的原创推文上——绝不会出现在别人的推文或转推上。
+- **只有发布权限。** 广场创作者 Key 无法触达交易或资金。
 
-## Features
+## 功能
 
-- Review-before-publish panel: edit text, toggle the source-link footer, select up to 4 images.
-- Handles X's lazy media rendering and "Show more" text truncation: the panel re-parses the tweet live when you click sync, so long posts and images are captured in full.
-- Duplicate protection via local sync records; uncertain results (504 / mid-submit network loss) are marked **"needs confirmation"** and require an explicit, token-confirmed retry instead of silently re-publishing.
-- Built-in **network diagnostics** on the options page to pinpoint VPN/split-proxy problems on the Binance API path.
-- Plain ES modules, zero dependencies, zero build step.
+- 发布前审阅面板：编辑文字、切换是否附原文来源链接、最多选择 4 张图片。
+- 处理 X 的媒体懒加载与"显示更多"文字截断：点击同步时面板会实时重新解析该条推文，长文和图片都能完整抓取。
+- 通过本地同步记录做防重复；对于结果不确定的情况（504 / 提交过程中断网），标记为**"待确认"**，需要你显式、凭 token 确认后才重试，而不是静默重发。
+- 设置页内置**网络诊断**，用于定位币安 API 链路上的 VPN / 分流代理问题。
+- 纯 ES 模块，零依赖，零构建步骤。
 
-## Install
+## 安装
 
-1. Clone or download this repository.
-2. Open `chrome://extensions` and enable **Developer mode**.
-3. Click **Load unpacked** and select the repository root (the folder containing `manifest.json`).
-4. The options page opens automatically; the toolbar icon reopens it later.
+1. Clone 或下载本仓库。
+2. 打开 `chrome://extensions`，启用**开发者模式**。
+3. 点击**加载已解压的扩展程序**，选择仓库根目录（含 `manifest.json` 的文件夹）。
+4. 设置页会自动打开；之后可通过工具栏图标重新打开。
 
-## Setup
+## 配置
 
-1. Create a dedicated **Square OpenAPI key** in the [Binance Square Creator Center](https://www.binance.com/square/creator-center/home). It only allows publishing Square content — no trading, no assets.
-2. In the options page, enter your X username (without `@`) and paste the key.
-3. Refresh any open `x.com` tabs.
-4. (Recommended) Run **Network diagnostics** on the options page once to verify the extension can reach the Binance API — especially if you use a VPN with split/PAC routing.
+1. 在[币安广场创作者中心](https://www.binance.com/square/creator-center/home)创建一个专用的**广场 OpenAPI Key**。它只能发布广场内容——不能交易、不动资产。
+2. 在设置页填入你的 X 用户名（不带 `@`）并粘贴 Key。
+3. 刷新已打开的 `x.com` 标签页。
+4. （建议）在设置页运行一次**网络诊断**，确认扩展能连上币安 API——尤其是使用分流 / PAC 代理时。
 
-## Usage
+## 使用
 
-Find one of your own posts → click the gold icon → review the panel (text, source link, images) → click **Publish to Binance Square**. On success the panel links straight to the Square post, and the tweet stays marked as synced.
+找到你自己的一条推文 → 点击金色图标 → 在面板中审阅（文字、来源链接、图片）→ 点击**发布到币安广场**。成功后面板会直接链接到广场帖子，该条推文也会保持"已同步"标记。
 
-## Limitations
+## 局限
 
-- No video/GIF, no scheduled or automatic posting, no editing/deleting Square posts, no X Articles (long-form) — text and up to 4 static images only.
-- Depends on X's DOM structure (`data-testid` attributes); a redesign may require updating `content/tweet-parser.js`.
-- Binance's current public defaults are 100 successful posts and 400 media uploads per day — respect them and the Square content rules.
+- 不支持视频 / GIF，不支持定时或自动发布，不支持编辑 / 删除广场帖子，不支持 X Articles（长文章）——仅支持文字和最多 4 张静态图片。
+- 依赖 X 的 DOM 结构（`data-testid` 属性）；若 X 改版，可能需要更新 `content/tweet-parser.js`。
+- 币安当前公开默认配额为每天 100 次成功发布、400 次媒体上传——请遵守配额及广场内容规则。
 
-## Troubleshooting
+## 常见问题排查
 
-- **No gold icon** — check the configured username, then refresh x.com; other users' posts and reposts never show it.
-- **Key invalid / expired** — regenerate it in the Creator Center and update the options page.
-- **"Needs confirmation"** — check your Square profile first; the extension deliberately does not auto-retry, to avoid double posting.
-- **Web pages load but publishing fails** — run the built-in network diagnostics; it separates proxy split-routing issues from Binance-side blocking.
+- **没有金色图标** —— 检查配置的用户名，然后刷新 x.com；别人的推文和转推永远不会显示它。
+- **Key 无效 / 过期** —— 在创作者中心重新生成，并更新设置页。
+- **"待确认"** —— 先去你的广场主页核对；扩展刻意不自动重试，以避免重复发布。
+- **网页能打开但发布失败** —— 运行内置的网络诊断；它能区分代理分流问题和币安侧的封禁。
 
-## Development
+## 开发
 
-No dependencies to install:
+无需安装任何依赖：
 
 ```sh
-node --test        # unit tests (never call the real Binance API)
-npm run check      # syntax-checks all sources + manifest
+node --test        # 单元测试（绝不调用真实币安 API）
+npm run check      # 语法检查所有源码和 manifest
 ```
 
-## License
+## 许可
 
-MIT — see [LICENSE](LICENSE).
+MIT —— 见 [LICENSE](LICENSE)。
